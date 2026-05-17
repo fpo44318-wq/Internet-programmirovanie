@@ -21,7 +21,7 @@ class ObjectController extends BaseSpaceTwigController {
         } 
         
         // Запрос к БД
-        $query = $this->pdo->prepare("SELECT id, title, description, image FROM space_objects WHERE id = :my_id");
+        $query = $this->pdo->prepare("SELECT id, title, description, info, image FROM space_objects WHERE id = :my_id");
         $query->bindValue(":my_id", $id);
         $query->execute();
         $object = $query->fetch();

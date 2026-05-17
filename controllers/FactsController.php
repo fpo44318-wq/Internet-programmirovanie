@@ -1,7 +1,7 @@
 <?php
 //require_once "TwigBaseController.php";
 
-class FactsController extends TwigBaseController {
+class FactsController extends BaseSpaceTwigController  {
     public $title = "Интересные факты";
     public $template = "facts.twig";
 

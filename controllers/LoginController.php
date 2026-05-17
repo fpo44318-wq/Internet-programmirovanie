@@ -1,6 +1,6 @@
 <?php
 
-class LoginController extends TwigBaseController {
+class LoginController extends BaseSpaceTwigController  {
     public $template = "login.twig";
     public $title = "Вход в систему";
     
@@ -31,6 +31,7 @@ class LoginController extends TwigBaseController {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
+            
             
             header("Location: /");
             exit;

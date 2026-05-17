@@ -19,9 +19,14 @@
 
 <div class="mt-3">
     {% if is_image %}
-        <img src="{{ object.image }}" class="img-fluid" alt="{{ object.title }}" style="max-width: 500px;">
+        <div style="display: flex; gap: 30px; align-items: flex-start;">
+            <img src="{{ object.image }}" alt="{{ object.title }}" style="width: 400px; max-width: 100%; object-fit: cover;">
+            <div style="flex: 1;">
+                <p>{{ object.description }}</p>
+            </div>
+        </div>
     {% elseif is_info %}
-        <p>{{ object.description }}</p>
+        <p>{{ object.info }}</p>
     {% endif %}
 </div>
 

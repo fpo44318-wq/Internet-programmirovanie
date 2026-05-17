@@ -27,7 +27,18 @@
                         <div class="row">
                             {% for object in objects %}
                                 <div class="col-3">
-                                    <div class="top-selling-item">
+                                    <div class="top-selling-item position-relative">
+                                        {# Кнопки админа #}
+                                        {% if session.role == 'admin' %}
+                                            <a href="/delete/{{ object.id }}" class="card-action-btn delete" 
+                                               onclick="return confirm('Удалить карточку «{{ object.title }}»?')">
+                                                ✖
+                                            </a>
+                                            <a href="/space-object/{{ object.id }}/edit" class="card-action-btn edit">
+                                                ✎
+                                            </a>
+                                        {% endif %}
+                                        
                                         <img src="{{ object.image }}" alt="{{ object.title }}" class="card-img-top">
                                         <div class="top-selling-item-info">
                                             <div class="d-flex top-selling-item-description justify-content-between">
@@ -35,18 +46,14 @@
                                                 <div class="top-selling-item__price"></div>
                                             </div>
                                             <div class="top-selling-item__Length d-flex gap-2">
-                                               
                                                 <a href="/space-object/{{ object.id }}/info" class="btn btn-primary btn-sm">Описание</a>
                                                 <a href="/space-object/{{ object.id }}/image" class="btn btn-secondary btn-sm">Картинка</a>
-                                                {% if session.role == 'admin' %}
-                                                    <a href="/delete/{{ object.id }}" class="btn btn-danger btn-sm" onclick="return confirm('Удалить карточку?')">Удалить</a>
-                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Каждые 4 карточки закрываем row и открываем новую -->
+                                {# Каждые 4 карточки закрываем row и открываем новую #}
                                 {% if loop.index % 4 == 0 and not loop.last %}
                                     </div><div class="row mt-4">
                                 {% endif %}

@@ -1,6 +1,6 @@
 <?php
 
-class CreateObjectController extends TwigBaseController {
+class CreateObjectController extends BaseSpaceTwigController  {
     public $template = "create_object.twig";
     public $title = "Добавить карточку";
     

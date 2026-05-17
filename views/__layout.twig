@@ -34,11 +34,11 @@
                 </li>
             </ul>
 
-            <!-- Правое меню (только Логин/Выйти) -->
+            
             <ul class="navbar-nav ms-auto">
                 {% if session.user_id %}
                     <li class="nav-item">
-                        <span class="nav-link">Привет, {{ session.username }} ({{ session.role }})</span>
+                        <span class="nav-link">{{ session.role }}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Выйти</a>

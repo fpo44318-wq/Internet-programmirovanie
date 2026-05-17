@@ -1,13 +1,12 @@
 <?php
-//require_once "TwigBaseController.php";
 
-class CardsController extends TwigBaseController {
+class CardsController extends BaseSpaceTwigController  {
     public $title = "Карточки";
     public $template = "cards.twig";
 
     public function getContext(): array {
         $context = parent::getContext();
-        $context['session'] = AuthHelper::getCurrentUser();
+        //$context['session'] = AuthHelper::getCurrentUser();
         $query = $this->pdo->query("SELECT * FROM space_objects");
         $context['space_objects'] = $query->fetchAll();        
 
