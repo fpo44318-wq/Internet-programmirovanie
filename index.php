@@ -7,7 +7,7 @@ require_once "controllers/ObjectController.php";
 require_once "controllers/CardsController.php";
 //require_once "controllers/CardsImageController.php";
 //require_once "controllers/CardsInfoController.php"; 
-require_once "controllers/FactsController.php";
+//require_once "controllers/FactsController.php";
 //require_once "controllers/FactsImageController.php";
 //require_once "controllers/FactsInfoController.php"; 
 require_once "controllers/LoginController.php";
