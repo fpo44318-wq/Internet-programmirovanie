@@ -30,16 +30,12 @@ $twig = new \Twig\Environment($loader, [
     "debug" => true  
 ]);
 $twig->addExtension(new \Twig\Extension\DebugExtension()); 
-
-//$url = $_SERVER["REQUEST_URI"]; 
-
-   // $title = "";
-   // $template = "";
-    //$context = [];
-    //$controller = new Controller404($twig);
-    //$query = $pdo->query("SELECT DISTINCT type FROM space_objects ORDER BY 1");
-    //$types = $query->fetchAll();
-    //$twig->addGlobal("types", $types);
+// Глобальная переменная для всех шаблонов
+$twig->addGlobal('user_session', [
+    'user_id' => $_SESSION['user_id'] ?? null,
+    'username' => $_SESSION['username'] ?? null,
+    'role' => $_SESSION['role'] ?? 'guest'
+]);
     $pdo = new PDO("mysql:host=localhost;dbname=outer_space;charset=utf8", "root", "1234");
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 

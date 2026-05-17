@@ -36,7 +36,7 @@
 
             
             <ul class="navbar-nav ms-auto">
-                {% if session.user_id %}
+                {% if user_session.user_id %}
                     <li class="nav-item">
                         <span class="nav-link">{{ session.role }}</span>
                     </li>

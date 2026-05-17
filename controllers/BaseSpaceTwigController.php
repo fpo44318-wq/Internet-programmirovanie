@@ -17,4 +17,5 @@ class BaseSpaceTwigController extends TwigBaseController {
 
     return $context;
     }
+    
 }

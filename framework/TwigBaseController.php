@@ -2,8 +2,8 @@
 require_once "BaseController.php"; 
 
 class TwigBaseController extends BaseController {
-    public $title = ""; // название страницы
-    public $template = ""; // шаблон страницы
+    public $title = ""; 
+    public $template = ""; 
     protected \Twig\Environment $twig; // 
         
     public function setTwig($twig) {
@@ -18,8 +18,9 @@ class TwigBaseController extends BaseController {
         return $context;
     }
     
-   public function get(array $context) { // добавил аргумент в get
-        echo $this->twig->render($this->template, $context); // а тут поменяем getContext на просто $context
+   public function get(array $context) { 
+
+    echo $this->twig->render($this->template, $context);
     }
 
  
