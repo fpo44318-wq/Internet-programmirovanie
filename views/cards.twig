@@ -1,0 +1,74 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+    <h1>Карточка</h1>
+
+  <!--  <ul class="nav nav-pills list-group">
+     <li class="nav-item list-group-item">
+    <a class="nav-link active" aqua-current="page" href="/cards">
+        Твёрдая ртуть
+    </a>
+  </li>
+  
+  <li class="nav-item list-group-item">
+    <a class="nav-link {{ url == '/cards/image' ? 'active' : '' }}" href="/cards/image">
+        Картинка
+    </a>
+    </li>
+
+    <li class="nav-item list-group-item">
+    <a class="nav-link {{ url == '/cards/info' ? 'active' : '' }}" href="/cards/info">
+        Описание
+    </a>
+  </li>
+</ul>-->
+
+<section class="section-top-selling">
+  <div class="container">
+    <div class="d-flex flex-column">
+      <h1 class="section-top-tagline">Изобретатели</h1>
+      
+      <div class="row">
+        {% for object in space_objects %}
+          <div class="col-3">
+            <div class="top-selling-item position-relative">
+               {% if session.role == 'admin' %}
+        <a href="/delete/{{ object.id }}" 
+           onclick="return confirm('Удалить карточку «{{ object.title }}»?')" 
+           style="position: absolute; top: 10px; right: 10px; z-index: 10; background: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.2); font-weight: bold; color: red;">
+            ✖
+        </a>
+        <a href="/space-object/{{ object.id }}/edit" 
+       style="position: absolute; top: 10px; left: 10px; z-index: 10; background: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.2); color: #ffc107; font-size: 14px;">
+        ✎
+    </a>
+        {% endif %}
+
+              <img src="{{ object.image }}" alt="{{ object.title }}" class="card-img-top">
+              <div class="top-selling-item-info">
+                <div class="d-flex top-selling-item-description justify-content-between">
+                  <div class="top-selling-item__title">{{ object.title }}</div>
+                  <div class="top-selling-item__price"></div>
+                </div>
+                <div class="top-selling-item__Length d-flex gap-2">
+                  
+                  <a href="/cards/{{ object.id }}/info" class="btn btn-primary btn-sm">Описание</a>
+                  <a href="/cards/{{ object.id }}/image" class="btn btn-secondary btn-sm">Картинка</a>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Каждые 4 карточки закрываем row и открываем новую -->
+          {% if loop.index % 4 == 0 and not loop.last %}
+            </div><div class="row mt-4">
+          {% endif %}
+        {% endfor %}
+      </div>
+      
+    </div>
+  </div>
+</section>
+    
+{% endblock %}

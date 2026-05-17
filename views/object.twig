@@ -1,0 +1,30 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+
+<h1>{{ object.title }}</h1>
+
+<ul class="nav nav-pills list-group list-group-horizontal mb-4">
+    <li class="nav-item me-2">
+        <a class="nav-link {{ is_image ? 'active' : '' }}" href="/{{ url_title }}/image">
+            Картинка
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ is_info ? 'active' : '' }}" href="/{{ url_title }}/info">
+            Описание
+        </a>
+    </li>
+</ul>
+
+<div class="mt-3">
+    {% if is_image %}
+        <img src="{{ object.image }}" class="img-fluid" alt="{{ object.title }}" style="max-width: 500px;">
+    {% elseif is_info %}
+        <p>{{ object.description }}</p>
+    {% endif %}
+</div>
+
+<a href="/cards" class="btn btn-outline-secondary mt-3">Вернуться к карточкам</a>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+    <h1>Добавление карточки изобретателя</h1>
+    <hr>
+
+    {% if message %}
+    <div class="alert alert-info">
+        {{ message }}
+        <a href="/space-object/{{ id }}">открыть новую карточку</a>
+    </div>
+    {% endif %}
+
+    {% if errors %}
+        <div class="alert alert-danger">
+            <strong>Ошибки:</strong>
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="row g-3">
+        <div class="col-4">
+            <label class="form-label">Название <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="title" value="{{ title }}" required>
+        </div>
+        <div class="col-4">
+            <label class="form-label">Краткое описание <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="description" value="{{ description }}" required>
+        </div>
+        
+        <div class="col-12">
+            <label class="form-label">Полное описание <span class="text-danger">*</span></label>
+            <textarea name="info" placeholder="Полное описание..." class="form-control" rows="5" required>{{ info }}</textarea>
+        </div>
+        
+        <div class="col-12">
+            <label class="form-label">Изображение <span class="text-danger">*</span></label>
+            <input type="file" name="image" class="form-control" accept="image/*" required>
+        </div>
+        
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+            <a href="/cards" class="btn btn-secondary">Отмена</a>
+        </div>
+    </form>
+{% endblock %}

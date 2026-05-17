@@ -1,0 +1,45 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+    <h1>Редактирование карточки</h1>
+    <hr>
+
+    {% if errors %}
+        <div class="alert alert-danger">
+            <strong>Ошибки:</strong>
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="row g-3">
+        <div class="col-4">
+            <label class="form-label">Название <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="title" value="{{ object.title }}" required>
+        </div>
+        <div class="col-4">
+            <label class="form-label">Краткое описание <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="description" value="{{ object.description }}" required>
+        </div>
+        
+        <div class="col-12">
+            <label class="form-label">Полное описание <span class="text-danger">*</span></label>
+            <textarea name="info" class="form-control" rows="5" required>{{ object.info }}</textarea>
+        </div>
+        
+        <div class="col-12">
+            <label class="form-label">Текущее изображение</label><br>
+            <img src="{{ object.image }}" style="max-width: 200px;" class="mb-2">
+            <input type="hidden" name="image_url" value="{{ object.image }}">
+            <input type="file" name="image" class="form-control" accept="image/*">
+        </div>
+        
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="/space-object/{{ object.id }}" class="btn btn-secondary">Отмена</a>
+        </div>
+    </form>
+{% endblock %}
