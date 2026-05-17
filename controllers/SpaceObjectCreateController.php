@@ -5,18 +5,20 @@ class SpaceObjectCreateController extends BaseSpaceTwigController {
     public $template = "space_object_create.twig";
 
     public function get(array $context) {
-        echo $_SERVER['REQUEST_METHOD'];
         parent::get($context);
     }
 
     public function post(array $context) {
         $title = $_POST['title'] ?? '';
-    $description = $_POST['description'] ?? '';
-    $type = $_POST['type'] ?? 'изобретатель';
-    $info = $_POST['info'] ?? '';
+        $description = $_POST['description'] ?? '';
+        $type = $_POST['type'] ?? 'изобретатель';
+        $info = $_POST['info'] ?? '';
 
-    $image_url = '';
-    if (empty($title)) {
+        $errors = [];
+        $image_url = '';
+
+        // Валидация полей
+        if (empty($title)) {
             $errors[] = "Название обязательно для заполнения";
         }
         
@@ -28,40 +30,40 @@ class SpaceObjectCreateController extends BaseSpaceTwigController {
             $errors[] = "Полное описание обязательно для заполнения";
         }
         
-    
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $tmp_name = $_FILES['image']['tmp_name'];
-        $name = basename($_FILES['image']['name']);
-        $media_dir = "D:/WEB 2.0/Views/php/media/";
-        
-        // Проверяем и создаем папку
-        if (!is_dir($media_dir)) {
-            mkdir($media_dir, 0777, true);
-            echo "Папка media создана: " . $media_dir . "<br>";
-        }
-        
-        echo "Папка media существует: " . (is_dir($media_dir) ? 'да' : 'нет') . "<br>";
-        echo "Путь: " . $media_dir . "<br>";
-        
-        $unique_name = time() . '_' . $name;
-        $destination = $media_dir . $unique_name;
-        echo "Сохраняем в: " . $destination . "<br>";
-        
-        if (move_uploaded_file($tmp_name, $destination)) {
-            $image_url = "/media/" . $unique_name;
-            echo "Файл успешно загружен!<br>";
+        // Обработка изображения
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $tmp_name = $_FILES['image']['tmp_name'];
+            $name = basename($_FILES['image']['name']);
+            $media_dir = "D:/WEB 2.0/Views/php/media/";
             
-            if (file_exists($destination)) {
-                echo "Файл существует на диске!<br>";
+            if (!is_dir($media_dir)) {
+                mkdir($media_dir, 0777, true); 
+            }
+            
+            $unique_name = time() . '_' . $name;
+            $destination = $media_dir . $unique_name;
+            
+            if (move_uploaded_file($tmp_name, $destination)) {
+                $image_url = "/media/" . $unique_name;
+            } else {
+                $errors[] = "Ошибка при загрузке изображения";
             }
         } else {
-            echo "Ошибка при перемещении файла!<br>";
+            $errors[] = "Изображение обязательно для загрузки";
         }
-    } else {
-        echo "Файл не загружен или ошибка: " . ($_FILES['image']['error'] ?? 'нет файла') . "<br>";
-    }
 
+        // Если есть ошибки, показываем форму снова
+        if (!empty($errors)) {
+            $context['errors'] = $errors;
+            $context['title'] = $title;
+            $context['description'] = $description;
+            $context['type'] = $type;
+            $context['info'] = $info;
+            $this->get($context);
+            return;
+        }
 
+        // Сохранение в БД
         if ($image_url) {
             $sql = "INSERT INTO space_objects (title, description, type, info, image) 
                     VALUES (:title, :description, :type, :info, :image_url)";

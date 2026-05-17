@@ -14,16 +14,11 @@ class ObjectController extends BaseSpaceTwigController {
         
         if (isset($this->params['id'])) {
             $id = $this->params['id'];
-            echo "ID взят из params['id']: " . $id . "<br>";
         } elseif (isset($this->params[0])) {
             $id = $this->params[0];
-            echo "ID взят из params[0]: " . $id . "<br>";
-        } elseif (isset($this->params[1])) {
-            $id = $this->params[1];
-            echo "ID взят из params[1]: " . $id . "<br>";
-        } else {
-            echo "ID не найден в params, использую значение по умолчанию: 1<br>";
-        }
+        } elseif (isset($this->params[1])) {  
+            $id = $this->params[1];          
+        } 
         
         // Запрос к БД
         $query = $this->pdo->prepare("SELECT id, title, description, image FROM space_objects WHERE id = :my_id");
